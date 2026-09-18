@@ -1,0 +1,244 @@
+/* ==============================
+   PAGE
+================================ */
+
+.company-page {
+  min-height: 100vh;
+  background: #f6f8fc;
+  padding: 60px 24px;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+
+/* ==============================
+   FORM CONTAINER
+================================ */
+
+.company-form-container {
+  width: 100%;
+  max-width: 950px;
+  background: #ffffff;
+  border: 1px solid #e8ebf0;
+  border-radius: 18px;
+  padding: 42px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.06);
+}
+
+
+/* ==============================
+   HEADER
+================================ */
+
+.company-form-header {
+  margin-bottom: 35px;
+  border-bottom: 1px solid #eeeeee;
+  padding-bottom: 25px;
+}
+
+.company-label {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #6c63ff;
+  margin-bottom: 10px;
+}
+
+.company-form-header h2 {
+  margin: 0 0 10px;
+  font-size: 30px;
+  color: #171923;
+}
+
+.company-form-header p {
+  margin: 0;
+  max-width: 620px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #747986;
+}
+
+
+/* ==============================
+   FORM GRID
+================================ */
+
+.company-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+
+/* ==============================
+   LABELS
+================================ */
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #292d38;
+}
+
+
+/* ==============================
+   INPUTS
+================================ */
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  box-sizing: border-box;
+
+  border: 1px solid #dfe3e8;
+  border-radius: 10px;
+
+  padding: 13px 14px;
+
+  font-size: 14px;
+  font-family: inherit;
+
+  color: #20232d;
+  background: #fafbfc;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.form-group input {
+  height: 48px;
+}
+
+.form-group textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+
+/* ==============================
+   PLACEHOLDER
+================================ */
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #a4a8b2;
+}
+
+
+/* ==============================
+   INPUT FOCUS
+================================ */
+
+.form-group input:focus,
+.form-group textarea:focus {
+  background: #ffffff;
+  border-color: #6c63ff;
+  box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1);
+}
+
+
+/* ==============================
+   BUTTON AREA
+================================ */
+
+.form-actions {
+  grid-column: 1 / -1;
+
+  display: flex;
+  justify-content: flex-end;
+
+  margin-top: 10px;
+}
+
+
+/* ==============================
+   BUTTON
+================================ */
+
+.form-actions button {
+  border: none;
+  border-radius: 10px;
+
+  background: #171923;
+  color: #ffffff;
+
+  padding: 14px 24px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.form-actions button:hover {
+  background: #6c63ff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(108, 99, 255, 0.2);
+}
+
+.form-actions button:active {
+  transform: translateY(0);
+}
+
+
+/* ==============================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 700px) {
+
+  .company-page {
+    padding: 30px 16px;
+  }
+
+  .company-form-container {
+    padding: 28px 20px;
+  }
+
+  .company-form {
+    grid-template-columns: 1fr;
+  }
+
+  .form-group.full-width {
+    grid-column: auto;
+  }
+
+  .form-actions {
+    grid-column: auto;
+  }
+
+  .form-actions button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .company-form-header h2 {
+    font-size: 25px;
+  }
+}
