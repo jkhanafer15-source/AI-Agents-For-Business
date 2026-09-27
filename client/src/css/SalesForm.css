@@ -1,0 +1,149 @@
+.sales-page {
+  min-height: 100vh;
+  background: #f6f8fc;
+  padding: 60px 24px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  font-family: Arial, sans-serif;
+}
+
+.sales-container {
+  width: 100%;
+  max-width: 900px;
+  background: #ffffff;
+  border: 1px solid #e8ebf0;
+  border-radius: 18px;
+  padding: 42px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.06);
+}
+
+.sales-header {
+  margin-bottom: 35px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.sales-label {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: #6c63ff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.sales-header h2 {
+  margin: 0 0 10px;
+  color: #171923;
+  font-size: 30px;
+}
+
+.sales-header p {
+  margin: 0;
+  color: #747986;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.sales-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+
+.sales-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sales-group label {
+  color: #292d38;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.sales-group input {
+  width: 100%;
+  height: 48px;
+  box-sizing: border-box;
+  padding: 13px 14px;
+  border: 1px solid #dfe3e8;
+  border-radius: 10px;
+  background: #fafbfc;
+  color: #20232d;
+  font-size: 14px;
+  outline: none;
+  transition: 0.2s ease;
+}
+
+.sales-group input:focus {
+  background: #ffffff;
+  border-color: #6c63ff;
+  box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1);
+}
+
+.sales-actions {
+  grid-column: 1 / -1;
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.sales-add-button,
+.sales-continue-button {
+  padding: 14px 24px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.sales-add-button {
+  border: none;
+  background: #171923;
+  color: white;
+}
+
+.sales-add-button:hover {
+  background: #6c63ff;
+  transform: translateY(-2px);
+}
+
+.sales-continue-button {
+  background: white;
+  color: #6c63ff;
+  border: 1px solid #6c63ff;
+}
+
+.sales-continue-button:hover {
+  background: #6c63ff;
+  color: white;
+}
+
+@media (max-width: 700px) {
+  .sales-page {
+    padding: 30px 16px;
+  }
+
+  .sales-container {
+    padding: 28px 20px;
+  }
+
+  .sales-form {
+    grid-template-columns: 1fr;
+  }
+
+  .sales-actions {
+    grid-column: auto;
+    flex-direction: column;
+  }
+
+  .sales-add-button,
+  .sales-continue-button {
+    width: 100%;
+  }
+}

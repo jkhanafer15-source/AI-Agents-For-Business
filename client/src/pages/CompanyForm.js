@@ -34,7 +34,60 @@ const userId = user.id;
 
   };
 
+const continueSetup = async () => {
 
+  try {
+
+    const user = JSON.parse(
+      localStorage.getItem("user")
+    );
+
+
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+
+
+    const response = await fetch(
+      `http://localhost:5050/api/setup-progress/${user.id}/sales`
+    );
+
+
+    const data =
+      await response.json();
+
+
+    if (!response.ok) {
+      console.error(data.error);
+      return;
+    }
+
+
+    // Keep company ID available
+    if (data.company_id) {
+
+      localStorage.setItem(
+        "company_id",
+        data.company_id
+      );
+
+    }
+
+
+    navigate(data.next);
+
+
+  } catch (error) {
+
+    console.error(
+      "SETUP PROGRESS ERROR:",
+      error
+    );
+
+  }
+
+};
   const handleSubmit = async (e) => {
 
   e.preventDefault();
@@ -61,7 +114,7 @@ const userId = user.id;
 
 
     const response = await fetch(
-      "http://localhost:5050/api/company",
+      "http://localhost:5050/api/companys",
       {
         method: "POST",
 
@@ -86,8 +139,17 @@ const userId = user.id;
       data
     );
 
+    if (!response.ok) {
+  console.error(data.error);
+  return;
+}
+
+localStorage.setItem(
+  "company_id",
+  data.company_id
+);
 // Company saved successfully
-    navigate("/analytics");
+    navigate("/sales");
   } catch (error) {
 
     console.error(error);
@@ -220,8 +282,10 @@ const userId = user.id;
             onChange={handleChange}
           />
         </div>
-
-
+<div className="form-actions">
+<button onClick={continueSetup}>
+  Continue Business Setup →
+</button></div>
         <div className="form-actions">
           <button type="submit">
             Save Company

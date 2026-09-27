@@ -1,0 +1,149 @@
+.marketing-page {
+  min-height: 100vh;
+  background: #f6f8fc;
+  padding: 60px 24px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  font-family: Arial, sans-serif;
+}
+
+.marketing-container {
+  width: 100%;
+  max-width: 900px;
+  background: #ffffff;
+  border: 1px solid #e8ebf0;
+  border-radius: 18px;
+  padding: 42px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.06);
+}
+
+.marketing-header {
+  margin-bottom: 35px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.marketing-label {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: #6c63ff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.marketing-header h2 {
+  margin: 0 0 10px;
+  color: #171923;
+  font-size: 30px;
+}
+
+.marketing-header p {
+  margin: 0;
+  color: #747986;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.marketing-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+
+.marketing-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.marketing-group label {
+  color: #292d38;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.marketing-group input {
+  width: 100%;
+  height: 48px;
+  box-sizing: border-box;
+  padding: 13px 14px;
+  border: 1px solid #dfe3e8;
+  border-radius: 10px;
+  background: #fafbfc;
+  color: #20232d;
+  font-size: 14px;
+  outline: none;
+  transition: 0.2s ease;
+}
+
+.marketing-group input:focus {
+  background: #ffffff;
+  border-color: #6c63ff;
+  box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1);
+}
+
+.marketing-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.marketing-add-button,
+.marketing-continue-button {
+  padding: 14px 24px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.marketing-add-button {
+  border: none;
+  background: #171923;
+  color: #ffffff;
+}
+
+.marketing-add-button:hover {
+  background: #6c63ff;
+  transform: translateY(-2px);
+}
+
+.marketing-continue-button {
+  background: #ffffff;
+  color: #6c63ff;
+  border: 1px solid #6c63ff;
+}
+
+.marketing-continue-button:hover {
+  background: #6c63ff;
+  color: #ffffff;
+}
+
+@media (max-width: 700px) {
+  .marketing-page {
+    padding: 30px 16px;
+  }
+
+  .marketing-container {
+    padding: 28px 20px;
+  }
+
+  .marketing-form {
+    grid-template-columns: 1fr;
+  }
+
+  .marketing-actions {
+    grid-column: auto;
+    flex-direction: column;
+  }
+
+  .marketing-add-button,
+  .marketing-continue-button {
+    width: 100%;
+  }
+}

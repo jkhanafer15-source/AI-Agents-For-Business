@@ -12,6 +12,9 @@ import Analysis from "./pages/Analysis";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import CompanyForm from "./pages/CompanyForm";
+import SalesForm from "./pages/SalesForm";
+import MarketingForm from "./pages/MarketingForm";
+import CustomerForm from "./pages/CustomerForm";
 
 function App() {
   return (
@@ -29,6 +32,22 @@ function App() {
           path="/register"
           element={<Register />}
         />
+
+        <Route
+  path="/sales"
+  element={<SalesForm />}
+/>
+
+<Route
+  path="/marketing"
+  element={<MarketingForm />}
+/>
+
+<Route
+  path="/customers"
+  element={<CustomerForm />}
+/>
+
         <Route
           path="/home"
           element={<Home />}

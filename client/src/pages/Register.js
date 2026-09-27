@@ -125,7 +125,7 @@ function Register() {
   );
 
 
-  navigate("/login");
+  navigate("/");
 
 } catch (error) {
 

@@ -960,7 +960,7 @@ app.delete(
 
 
 app.post(
-  "/api/company",
+  "/api/companys",
   async (req, res) => {
 
     try {
@@ -1057,6 +1057,580 @@ app.post(
         "CREATE COMPANY ERROR:",
         error
       );
+
+      return res.status(500).json({
+        error: error.message
+      });
+
+    }
+
+  }
+);
+
+
+app.post(
+  "/api/sales",
+  async (req, res) => {
+
+    try {
+
+      const {
+        company_id,
+        product_name,
+        quantity,
+        unit_price,
+        sale_date
+      } = req.body;
+
+
+      console.log(
+        "SALE BODY:",
+        req.body
+      );
+
+
+      if (
+        !company_id ||
+        !product_name ||
+        !quantity ||
+        !unit_price ||
+        !sale_date
+      ) {
+
+        return res.status(400).json({
+          error:
+            "All sales fields are required"
+        });
+
+      }
+
+
+      const [result] =
+        await db.execute(
+          `
+          INSERT INTO sales
+          (
+            company_id,
+            product_name,
+            quantity,
+            unit_price,
+            sale_date
+          )
+          VALUES (?, ?, ?, ?, ?)
+          `,
+          [
+            company_id,
+            product_name,
+            quantity,
+            unit_price,
+            sale_date
+          ]
+        );
+
+
+      console.log(
+        "SALE INSERTED:",
+        result.insertId
+      );
+
+
+      return res.status(201).json({
+
+        success: true,
+
+        message:
+          "Sale added successfully",
+
+        sale_id:
+          result.insertId
+
+      });
+
+
+    } catch (error) {
+
+      console.error(
+        "CREATE SALE ERROR:",
+        error
+      );
+
+
+      return res.status(500).json({
+        error: error.message
+      });
+
+    }
+
+  }
+);
+
+app.post(
+  "/api/marketing",
+  async (req, res) => {
+
+    try {
+
+      const {
+        company_id,
+        campaign_name,
+        spend,
+        leads,
+        conversions,
+        revenue,
+        start_date,
+        end_date
+      } = req.body;
+
+
+      console.log(
+        "MARKETING BODY:",
+        req.body
+      );
+
+
+      if (
+        !company_id ||
+        !campaign_name ||
+        spend === "" ||
+        leads === "" ||
+        conversions === "" ||
+        revenue === "" ||
+        !start_date
+      ) {
+
+        return res.status(400).json({
+          error:
+            "Required marketing fields are missing"
+        });
+
+      }
+
+
+      const [result] =
+        await db.execute(
+          `
+          INSERT INTO marketing_campaigns
+          (
+            company_id,
+            campaign_name,
+            spend,
+            leads,
+            conversions,
+            revenue,
+            start_date,
+            end_date
+          )
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+          `,
+          [
+            company_id,
+            campaign_name,
+            spend,
+            leads,
+            conversions,
+            revenue,
+            start_date,
+            end_date || null
+          ]
+        );
+
+
+      console.log(
+        "MARKETING CAMPAIGN INSERTED:",
+        result.insertId
+      );
+
+
+      return res.status(201).json({
+
+        success: true,
+
+        message:
+          "Marketing campaign added successfully",
+
+        campaign_id:
+          result.insertId
+
+      });
+
+
+    } catch (error) {
+
+      console.error(
+        "CREATE MARKETING ERROR:",
+        error
+      );
+
+
+      return res.status(500).json({
+        error: error.message
+      });
+
+    }
+
+  }
+);
+
+app.post(
+  "/api/customers",
+  async (req, res) => {
+
+    try {
+
+      const {
+        company_id,
+        customer_name,
+        status,
+        sentiment,
+        joined_date,
+        left_date
+      } = req.body;
+
+
+      console.log(
+        "CUSTOMER BODY:",
+        req.body
+      );
+
+
+      if (
+        !company_id ||
+        !customer_name ||
+        !status ||
+        !sentiment ||
+        !joined_date
+      ) {
+
+        return res.status(400).json({
+          error:
+            "Required customer fields are missing"
+        });
+
+      }
+
+
+      const [result] =
+        await db.execute(
+          `
+          INSERT INTO customers
+          (
+            company_id,
+            customer_name,
+            status,
+            sentiment,
+            joined_date,
+            left_date
+          )
+          VALUES (?, ?, ?, ?, ?, ?)
+          `,
+          [
+            company_id,
+            customer_name,
+            status,
+            sentiment,
+            joined_date,
+            left_date || null
+          ]
+        );
+
+
+      console.log(
+        "CUSTOMER INSERTED:",
+        result.insertId
+      );
+
+
+      return res.status(201).json({
+
+        success: true,
+
+        message:
+          "Customer added successfully",
+
+        customer_id:
+          result.insertId
+
+      });
+
+
+    } catch (error) {
+
+      console.error(
+        "CREATE CUSTOMER ERROR:",
+        error
+      );
+
+
+      return res.status(500).json({
+        error: error.message
+      });
+
+    }
+
+  }
+);
+
+// =====================================
+// CHECK BUSINESS SETUP PROGRESS
+// =====================================
+
+// =====================================
+// CHECK CURRENT SETUP STEP
+// =====================================
+
+app.get(
+  "/api/setup-progress/:userId/:step",
+  async (req, res) => {
+
+    try {
+
+      const userId = req.params.userId;
+      const step = req.params.step;
+
+      console.log(
+        "CHECKING SETUP FOR USER:",
+        userId
+      );
+
+      console.log(
+        "CURRENT STEP:",
+        step
+      );
+
+
+      // =====================================
+      // FIND USER COMPANY
+      // =====================================
+
+      const [companies] =
+        await db.execute(
+          `
+          SELECT id
+          FROM companies
+          WHERE user_id = ?
+          LIMIT 1
+          `,
+          [userId]
+        );
+
+
+      // =====================================
+      // COMPANY STEP
+      // =====================================
+
+      if (step === "company") {
+
+        if (companies.length === 0) {
+
+          return res.json({
+            exists: false,
+            next: "/company",
+            message:
+              "Please save your company first."
+          });
+
+        }
+
+
+        const companyId =
+          companies[0].id;
+
+
+        console.log(
+          "COMPANY EXISTS:",
+          companyId
+        );
+
+
+        return res.json({
+          exists: true,
+          company_id: companyId,
+          next: "/sales"
+        });
+
+      }
+
+
+      // =====================================
+      // ALL OTHER STEPS REQUIRE COMPANY
+      // =====================================
+
+      if (companies.length === 0) {
+
+        return res.json({
+          exists: false,
+          next: "/company",
+          message:
+            "Please create your company first."
+        });
+
+      }
+
+
+      const companyId =
+        companies[0].id;
+
+
+      console.log(
+        "COMPANY ID:",
+        companyId
+      );
+
+
+      // =====================================
+      // SALES STEP
+      // =====================================
+
+      if (step === "sales") {
+
+        const [sales] =
+          await db.execute(
+            `
+            SELECT id
+            FROM sales
+            WHERE company_id = ?
+            LIMIT 1
+            `,
+            [companyId]
+          );
+
+
+        console.log(
+          "SALES:",
+          sales
+        );
+
+
+        if (sales.length === 0) {
+
+          return res.json({
+            exists: false,
+            company_id: companyId,
+            next: "/sales",
+            message:
+              "Please add at least one sale first."
+          });
+
+        }
+
+
+        return res.json({
+          exists: true,
+          company_id: companyId,
+          next: "/marketing"
+        });
+
+      }
+
+
+      // =====================================
+      // MARKETING STEP
+      // =====================================
+
+      if (step === "marketing") {
+
+        const [marketing] =
+          await db.execute(
+            `
+            SELECT id
+            FROM marketing_campaigns
+            WHERE company_id = ?
+            LIMIT 1
+            `,
+            [companyId]
+          );
+
+
+        console.log(
+          "MARKETING:",
+          marketing
+        );
+
+
+        if (marketing.length === 0) {
+
+          return res.json({
+            exists: false,
+            company_id: companyId,
+            next: "/marketing",
+            message:
+              "Please add at least one marketing campaign first."
+          });
+
+        }
+
+
+        return res.json({
+          exists: true,
+          company_id: companyId,
+          next: "/customers"
+        });
+
+      }
+
+
+      // =====================================
+      // CUSTOMER STEP
+      // =====================================
+
+      if (step === "customers") {
+
+        const [customers] =
+          await db.execute(
+            `
+            SELECT id
+            FROM customers
+            WHERE company_id = ?
+            LIMIT 1
+            `,
+            [companyId]
+          );
+
+
+        console.log(
+          "CUSTOMERS:",
+          customers
+        );
+
+
+        if (customers.length === 0) {
+
+          return res.json({
+            exists: false,
+            company_id: companyId,
+            next: "/customers",
+            message:
+              "Please add at least one customer first."
+          });
+
+        }
+
+
+        return res.json({
+          exists: true,
+          company_id: companyId,
+          next: "/analytics"
+        });
+
+      }
+
+
+      // =====================================
+      // INVALID STEP
+      // =====================================
+
+      return res.status(400).json({
+        error: "Invalid setup step"
+      });
+
+
+    } catch (error) {
+
+      console.error(
+        "SETUP PROGRESS ERROR:",
+        error
+      );
+
 
       return res.status(500).json({
         error: error.message
